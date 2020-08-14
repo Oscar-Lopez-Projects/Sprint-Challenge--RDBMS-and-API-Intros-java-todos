@@ -44,6 +44,15 @@ public class User extends Auditable
     @Email
     private String primaryemail;
 
+    //we have to add the relationships
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private List<Todo> todos= new ArrayList<>();
+
+
+
     /**
      * Default constructor used primarily by the JPA.
      */
