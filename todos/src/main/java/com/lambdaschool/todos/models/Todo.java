@@ -17,21 +17,19 @@ public class Todo extends Auditable{
     @Column(nullable = false)
     private String description;
 
-
+    @Column(nullable = false)
     private boolean completed = false;
 
 
     //many to one
     @ManyToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties(value = "todos", allowSetters = true )
+    @JoinColumn(name = "userid",nullable = false)
+    @JsonIgnoreProperties(value = "user")
     private User user;
 
-
-
-    public Todo(String description, boolean completed) {
+    public Todo(User user,String description) {
+        this.user = user;
         this.description = description;
-        this.completed = completed;
     }
 
     public Todo() {
@@ -59,5 +57,13 @@ public class Todo extends Auditable{
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
